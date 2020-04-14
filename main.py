@@ -33,6 +33,27 @@ def swapBlocks(blockA, blockB):
 			color = tempBlock[i][j]
 			canvas.set_at((blockBPixelStart[0]+i, blockBPixelStart[1]+j), color)
 
+def getRGBavg(block):
+	totalR = 0
+	totalG = 0
+	totalB = 0
+	
+	blockPixelStart = [blockPixelSize*block[0], blockPixelSize*block[1]]
+	
+	for i in range(blockPixelSize):
+		for j in range(blockPixelSize):
+			color = canvas.get_at((blockPixelStart[0]+i, blockPixelStart[1]+j))
+			totalR += color[0]
+			totalG += color[1]
+			totalB += color[2]
+
+	averageR = totalR/blockPixelSize**2
+	averageG = totalG/blockPixelSize**2
+	averageB = totalB/blockPixelSize**2
+
+
+	return averageR, averageG, averageB 
+
 def main():
 	while(True):
 		maxBlocks = canvasSize/blockPixelSize-1
@@ -44,11 +65,16 @@ def main():
 			blockA = [random.randint(0, maxBlocks), random.randint(0, maxBlocks)]
 			blockB = [random.randint(0, maxBlocks), random.randint(0, maxBlocks)]
 
-			distance = math.sqrt( (blockB[0] - blockA[0])**2 + (blockB[1] - blockA[1])**2 )
+			#Get average RGB value of block A and B
+			blockAavgR,  blockAavgG, blockAavgB = getRGBavg(blockA)
+			
+			blockBavgR,  blockBavgG, blockBavgB = getRGBavg(blockB)
 
-			if(distance == 1):
-				swapBlocks(blockA, blockB)
-				canSwap = True
+			print(blockAavgR)
+
+			canSwap = True
+
+
 
 		
 		pygame.display.update()

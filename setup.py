@@ -1,8 +1,6 @@
 import pygame
 pygame.init()
 
-red = (255,0,0)
-
 canvasSize = 1000
 
 canvas = pygame.display.set_mode((canvasSize, canvasSize))
