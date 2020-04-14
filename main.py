@@ -60,11 +60,36 @@ def main():
 
 		#only swaps blocks which are exactly 1 distance apart
 		canSwap = False
-		
+		blockA = [random.randint(0, maxBlocks), random.randint(0, maxBlocks)]
 		while(canSwap == False):
 
-			blockA = [random.randint(0, maxBlocks), random.randint(0, maxBlocks)]
-			blockB = [random.randint(0, maxBlocks), random.randint(0, maxBlocks)]
+			#be smart about how we pick block B since we know it cant be more than 1 block away
+			#handle x bounds first including edge cases
+			if(blockA[0] == 0):
+				minX = 0
+			else:
+				minX = blockA[0] - 1
+
+			if(blockA[0] == 9):
+				maxX = 9
+			else:
+				maxX = blockA[0] + 1
+
+			#handle y
+			if(blockA[1] == 0):
+				minY = 0
+			else:
+				minY = blockA[1] - 1
+
+			if(blockA[1] == 9):
+				maxY = 9
+			else:
+				maxY = blockA[1] + 1
+
+
+
+
+			blockB = [random.randint(minX, maxX), random.randint(minY, maxY)]
 
 			#Get average RGB value of block A and B
 			blockAavgR,  blockAavgG, blockAavgB = getRGBavg(blockA)
@@ -76,12 +101,12 @@ def main():
 			blockGNormalized = (math.sqrt((blockAavgG-blockBavgG)**2))/255
 			blockBNormalized = (math.sqrt((blockAavgB-blockBavgB)**2))/255
 
+			#Higher avg means more different, so 1 minus that value
 			finalScore = 1 - (blockRNormalized + blockGNormalized + blockBNormalized)/3
 
 			distance = math.sqrt( (blockB[0] - blockA[0])**2 + (blockB[1] - blockA[1])**2 )
 
-			print(distance)
-			if((finalScore > 0.6) and distance == 1):
+			if((finalScore > 0.7) and distance == 1.0):
 				canSwap = True
 				swapBlocks(blockA, blockB)
 				# print(finalScore)
