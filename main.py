@@ -3,7 +3,7 @@ import random
 import math
 
 #length/width in pixels of our block
-blockPixelSize = 100
+blockPixelSize = 50
 
 #Making temp block for use later with dummy value x
 tempBlock = [[] for _ in range(blockPixelSize)]
@@ -71,8 +71,8 @@ def main():
 			else:
 				minX = blockA[0] - 1
 
-			if(blockA[0] == 9):
-				maxX = 9
+			if(blockA[0] == maxBlocks):
+				maxX = maxBlocks
 			else:
 				maxX = blockA[0] + 1
 
@@ -82,8 +82,8 @@ def main():
 			else:
 				minY = blockA[1] - 1
 
-			if(blockA[1] == 9):
-				maxY = 9
+			if(blockA[1] == maxBlocks):
+				maxY = maxBlocks
 			else:
 				maxY = blockA[1] + 1
 
