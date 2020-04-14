@@ -3,7 +3,7 @@ import random
 import math
 
 #length/width in pixels of our block
-blockPixelSize = 50
+blockPixelSize = 100
 
 #Making temp block for use later with dummy value x
 tempBlock = [[] for _ in range(blockPixelSize)]
@@ -60,6 +60,7 @@ def main():
 
 		#only swaps blocks which are exactly 1 distance apart
 		canSwap = False
+		
 		while(canSwap == False):
 
 			blockA = [random.randint(0, maxBlocks), random.randint(0, maxBlocks)]
@@ -70,9 +71,20 @@ def main():
 			
 			blockBavgR,  blockBavgG, blockBavgB = getRGBavg(blockB)
 
-			print(blockAavgR)
+			#bounded by [0, 1]
+			blockRNormalized = (math.sqrt((blockAavgR-blockBavgR)**2))/255
+			blockGNormalized = (math.sqrt((blockAavgG-blockBavgG)**2))/255
+			blockBNormalized = (math.sqrt((blockAavgB-blockBavgB)**2))/255
 
-			canSwap = True
+			finalScore = 1 - (blockRNormalized + blockGNormalized + blockBNormalized)/3
+
+			distance = math.sqrt( (blockB[0] - blockA[0])**2 + (blockB[1] - blockA[1])**2 )
+
+			print(distance)
+			if((finalScore > 0.6) and distance == 1):
+				canSwap = True
+				swapBlocks(blockA, blockB)
+				# print(finalScore)
 
 
 
