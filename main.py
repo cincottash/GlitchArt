@@ -108,7 +108,7 @@ def main():
 			#distance formula
 			distance = math.sqrt( (blockB[0] - blockA[0])**2 + (blockB[1] - blockA[1])**2 )
 
-			if((finalScore > 0.75) and distance <= math.sqrt(2)):
+			if((finalScore > 0.75) and distance <= 1):
 				canSwap = True
 				swapBlocks(blockA, blockB)
 
