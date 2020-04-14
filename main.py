@@ -61,6 +61,7 @@ def main():
 		#only swaps blocks which are exactly 1 distance apart
 		canSwap = False
 		blockA = [random.randint(0, maxBlocks), random.randint(0, maxBlocks)]
+		
 		while(canSwap == False):
 
 			#be smart about how we pick block B since we know it cant be more than 1 block away
@@ -104,16 +105,13 @@ def main():
 			#Higher avg means more different, so 1 minus that value
 			finalScore = 1 - (blockRNormalized + blockGNormalized + blockBNormalized)/3
 
+			#distance formula
 			distance = math.sqrt( (blockB[0] - blockA[0])**2 + (blockB[1] - blockA[1])**2 )
 
-			if((finalScore > 0.7) and distance == 1.0):
+			if((finalScore > 0.75) and distance <= math.sqrt(2)):
 				canSwap = True
 				swapBlocks(blockA, blockB)
-				# print(finalScore)
 
-
-
-		
 		pygame.display.update()
 
 
